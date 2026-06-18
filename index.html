@@ -3,166 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sistema de gestión de FPQRS - Inicio de sesión y registro">
-    <title>FPQRS Management - Inicio de Sesión</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <title>FPQRS Management System</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/case-management.css">
+    <link rel="stylesheet" href="css/case-detail.css">
+    <link rel="stylesheet" href="css/registration.css">
 </head>
-<body class="auth-body">
-    <!-- Formulario de Inicio de Sesión -->
-    <div id="loginForm" class="auth-container">
-        <div class="auth-card">
-            <div class="auth-header">
-                <h1 class="auth-title">FPQRS Management</h1>
-                <p class="auth-subtitle">Sistema de Gestión de Peticiones, Quejas, Reclamos y Sugerencias</p>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar d-none" id="navbar">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a href="#" class="navbar-brand">
+                <i class="fas fa-file-invoice"></i> FPQRS Management
+            </a>
+            <div class="navbar-nav d-flex gap-3 align-items-center">
+                <a href="#" class="nav-link" data-page="inbox">
+                    <i class="fas fa-inbox"></i> Bandeja
+                </a>
+                <a href="#" class="nav-link" data-page="register">
+                    <i class="fas fa-plus-circle"></i> Nuevo FPQRS
+                </a>
+                <div class="dropdown">
+                    <button class="nav-link dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown">
+                        <i class="fas fa-user-circle"></i> <span id="userName">Usuario</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="#" id="profileLink">
+                            <i class="fas fa-user"></i> Mi Perfil
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div id="app">
+        <!-- Login/Register Page -->
+        <div id="authPage" class="auth-container">
+            <div class="auth-card">
+                <div class="logo text-center">
+                    <i class="fas fa-file-invoice"></i>
+                </div>
+                
+                <div class="tab-switch">
+                    <button class="active" data-tab="login">Iniciar Sesión</button>
+                    <button data-tab="register">Registrarse</button>
+                </div>
+
+                <!-- Login Form -->
+                <div id="loginTab" class="tab-content active">
+                    <h2>Iniciar Sesión</h2>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Correo Electrónico</label>
+                            <input type="email" id="loginEmail" name="email" required>
+                            <span class="error-message">Por favor ingrese un correo válido</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Contraseña</label>
+                            <div class="password-toggle">
+                                <input type="password" id="loginPassword" name="password" required>
+                                <button type="button" class="toggle-btn" onclick="togglePasswordVisibility('loginPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="error-message">Por favor ingrese su contraseña</span>
+                        </div>
+
+                        <div class="remember-forgot">
+                            <label>
+                                <input type="checkbox" name="remember"> Recuérdame
+                            </label>
+                            <a href="#forgot-password">¿Olvidó su contraseña?</a>
+                        </div>
+
+                        <button type="submit" class="auth-submit">Iniciar Sesión</button>
+
+                        <div class="auth-toggle">
+                            ¿No tienes cuenta? <a href="#" onclick="switchTab('register')">Regístrate aquí</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerTab" class="tab-content">
+                    <h2>Crear Cuenta</h2>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="registerName">Nombre Completo</label>
+                            <input type="text" id="registerName" name="name" required>
+                            <span class="error-message">Por favor ingrese su nombre</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerEmail">Correo Electrónico</label>
+                            <input type="email" id="registerEmail" name="email" required>
+                            <span class="error-message">Por favor ingrese un correo válido</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPassword">Contraseña</label>
+                            <div class="password-toggle">
+                                <input type="password" id="registerPassword" name="password" required>
+                                <button type="button" class="toggle-btn" onclick="togglePasswordVisibility('registerPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="form-help-text">Mínimo 8 caracteres</span>
+                            <span class="error-message">Por favor ingrese una contraseña válida</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerConfirm">Confirmar Contraseña</label>
+                            <div class="password-toggle">
+                                <input type="password" id="registerConfirm" name="confirm" required>
+                                <button type="button" class="toggle-btn" onclick="togglePasswordVisibility('registerConfirm')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <span class="error-message">Las contraseñas no coinciden</span>
+                        </div>
+
+                        <button type="submit" class="auth-submit">Registrarse</button>
+
+                        <div class="auth-toggle">
+                            ¿Ya tienes cuenta? <a href="#" onclick="switchTab('login')">Inicia sesión aquí</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case Management Page -->
+        <div id="caseManagementPage" class="d-none">
+            <div class="case-management-header">
+                <h1>Bandeja de Casos</h1>
+                <p>Gestiona tus solicitudes de FPQRS</p>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="navigateToPage('register')">
+                        <i class="fas fa-plus"></i> Nuevo FPQRS
+                    </button>
+                </div>
             </div>
 
-            <form id="form-login" class="auth-form" novalidate>
-                <div class="form-group mb-3">
-                    <label for="loginEmail" class="form-label">Correo Electrónico</label>
-                    <input 
-                        type="email" 
-                        class="form-control" 
-                        id="loginEmail" 
-                        name="email" 
-                        placeholder="usuario@example.com"
-                        required
-                        aria-label="Correo electrónico">
-                    <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
+            <div class="container-fluid">
+                <!-- Filters Section -->
+                <div class="filters-section">
+                    <form id="filterForm">
+                        <div class="filters-row">
+                            <div class="filter-group">
+                                <label for="filterType">Tipo de FPQRS</label>
+                                <select id="filterType" name="type">
+                                    <option value="">Todos</option>
+                                    <option value="Felicitación">Felicitación</option>
+                                    <option value="Petición">Petición</option>
+                                    <option value="Queja">Queja</option>
+                                    <option value="Reclamo">Reclamo</option>
+                                    <option value="Sugerencia">Sugerencia</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="filterStatus">Estado</label>
+                                <select id="filterStatus" name="status">
+                                    <option value="">Todos</option>
+                                    <option value="Pendiente">Pendiente</option>
+                                    <option value="En Proceso">En Proceso</option>
+                                    <option value="Resuelto">Resuelto</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="filterPriority">Prioridad</label>
+                                <select id="filterPriority" name="priority">
+                                    <option value="">Todas</option>
+                                    <option value="Alta">Alta</option>
+                                    <option value="Media">Media</option>
+                                    <option value="Baja">Baja</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-actions">
+                                <button type="button" class="btn-filter" onclick="applyFilters()">
+                                    <i class="fas fa-filter"></i> Filtrar
+                                </button>
+                                <button type="button" class="btn-reset" onclick="resetFilters()">
+                                    <i class="fas fa-redo"></i> Reiniciar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="form-group mb-3">
-                    <label for="loginPassword" class="form-label">Contraseña</label>
-                    <input 
-                        type="password" 
-                        class="form-control" 
-                        id="loginPassword" 
-                        name="password" 
-                        placeholder="Ingresa tu contraseña"
-                        required
-                        aria-label="Contraseña">
-                    <div class="invalid-feedback">La contraseña es requerida.</div>
+                <!-- Cases Table -->
+                <div class="cases-list">
+                    <table class="cases-table" id="casesTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Número</th>
+                                <th>Tipo</th>
+                                <th>Asunto</th>
+                                <th>Estado</th>
+                                <th>Prioridad</th>
+                                <th>Fecha de Creación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="casesTableBody">
+                            <!-- Loaded dynamically -->
+                        </tbody>
+                    </table>
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No hay casos</h3>
+                        <p>No se encontraron casos que coincidan con los filtros aplicados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case Detail Page -->
+        <div id="caseDetailPage" class="d-none">
+            <div class="case-detail-header">
+                <div class="case-detail-title">
+                    <div>
+                        <h1 id="caseDetailNumber"></h1>
+                        <p id="caseDetailSubject" class="text-muted"></p>
+                    </div>
+                    <div class="case-detail-actions">
+                        <button class="btn btn-outline-primary" onclick="editCase()">
+                            <i class="fas fa-edit"></i> Editar
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="downloadCase()">
+                            <i class="fas fa-download"></i> Descargar
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="navigateToPage('inbox')">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </button>
+                    </div>
                 </div>
 
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
-                    <label class="form-check-label" for="rememberMe">
-                        Recuérdame
-                    </label>
+                <div class="case-meta">
+                    <div class="case-meta-item">
+                        <label>Tipo</label>
+                        <value id="caseDetailType"></value>
+                    </div>
+                    <div class="case-meta-item">
+                        <label>Estado</label>
+                        <value id="caseDetailStatus"></value>
+                    </div>
+                    <div class="case-meta-item">
+                        <label>Prioridad</label>
+                        <value id="caseDetailPriority"></value>
+                    </div>
+                    <div class="case-meta-item">
+                        <label>Fecha de Creación</label>
+                        <value id="caseDetailCreatedAt"></value>
+                    </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary w-100 mb-2">Iniciar Sesión</button>
-            </form>
-
-            <div class="auth-divider">
-                <span>o</span>
             </div>
 
-            <p class="auth-switch text-center">
-                ¿No tienes cuenta? 
-                <a href="#" id="switchToRegister" class="auth-link">Regístrate aquí</a>
-            </p>
+            <div class="container-fluid">
+                <div class="case-content">
+                    <div class="case-main">
+                        <!-- Description Section -->
+                        <div class="case-section">
+                            <h3 class="case-section-title">Descripción</h3>
+                            <div class="case-description" id="caseDetailDescription"></div>
+                        </div>
 
-            <!-- Credenciales de prueba -->
-            <div class="alert alert-info mt-4" role="alert">
-                <strong>Credenciales de prueba:</strong>
-                <br>
-                <small>Usuario: usuario@example.com</small>
-                <br>
-                <small>Contraseña: 123456</small>
+                        <!-- Attachments Section -->
+                        <div class="case-section" id="attachmentsSection" style="display: none;">
+                            <h3 class="case-section-title">Archivos Adjuntos</h3>
+                            <div class="case-attachments" id="attachmentsList"></div>
+                        </div>
+
+                        <!-- Comments Section -->
+                        <div class="case-section">
+                            <h3 class="case-section-title">Comentarios</h3>
+                            <div class="comments-list" id="commentsList"></div>
+                            <div class="comment-form mt-4">
+                                <textarea class="comment-textarea" id="commentInput" placeholder="Escribe un comentario..."></textarea>
+                                <div class="comment-actions">
+                                    <button type="button" class="btn-cancel" onclick="cancelComment()">Cancelar</button>
+                                    <button type="button" class="btn-submit" onclick="submitComment()">Enviar Comentario</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- History Section -->
+                        <div class="case-section">
+                            <h3 class="case-section-title">Historial de Cambios</h3>
+                            <div class="history-timeline" id="historyTimeline"></div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="case-sidebar">
+                        <!-- User Information -->
+                        <div class="sidebar-card">
+                            <h4 class="sidebar-title">Información del Solicitante</h4>
+                            <div class="info-item">
+                                <span class="info-label">Nombre</span>
+                                <span class="info-value" id="sidebarUserName"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Correo</span>
+                                <span class="info-value" id="sidebarUserEmail"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Teléfono</span>
+                                <span class="info-value" id="sidebarUserPhone"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Cédula</span>
+                                <span class="info-value" id="sidebarUserDocument"></span>
+                            </div>
+                        </div>
+
+                        <!-- Case Status -->
+                        <div class="sidebar-card">
+                            <h4 class="sidebar-title">Detalles de Estado</h4>
+                            <div class="info-item">
+                                <span class="info-label">Estado Actual</span>
+                                <span class="status-badge" id="sidebarStatusBadge"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Prioridad</span>
+                                <span class="priority-badge" id="sidebarPriorityBadge"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Fecha Límite</span>
+                                <span class="info-value" id="sidebarDueDate"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Completado el</span>
+                                <span class="info-value" id="sidebarCompletedAt">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="sidebar-card">
+                            <h4 class="sidebar-title">Acciones</h4>
+                            <button class="btn btn-primary w-100 mb-2" onclick="editCase()">
+                                <i class="fas fa-edit"></i> Editar Caso
+                            </button>
+                            <button class="btn btn-danger w-100" onclick="deleteCase()">
+                                <i class="fas fa-trash"></i> Eliminar Caso
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Form Page -->
+        <div id="registrationPage" class="d-none">
+            <div class="registration-header">
+                <h1>Formulario de Radicación FPQRS</h1>
+                <p>Diligencia el siguiente formulario para radicar tu petición, queja, reclamo, sugerencia o felicitación</p>
+            </div>
+
+            <div class="container-fluid">
+                <form id="fpqrsForm" class="registration-form">
+                    <div class="form-success" id="formSuccess">
+                        <h4><i class="fas fa-check-circle"></i> ¡Radicación Exitosa!</h4>
+                        <p id="successMessage">Tu FPQRS ha sido radicado correctamente.</p>
+                    </div>
+
+                    <!-- Section 1: Información del Solicitante -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <span class="badge badge-primary">1</span> Información del Solicitante
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fullName">Nombre Completo <span class="required">*</span></label>
+                                <input type="text" id="fullName" name="fullName" required>
+                                <span class="error-message">Por favor ingrese su nombre completo</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="document">Cédula <span class="required">*</span></label>
+                                <input type="text" id="document" name="document" required>
+                                <span class="error-message">Por favor ingrese su cédula</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Correo Electrónico <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" required>
+                                <span class="error-message">Por favor ingrese un correo válido</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Teléfono <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" required>
+                                <span class="error-message">Por favor ingrese un teléfono válido</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="address">Dirección <span class="required">*</span></label>
+                                <input type="text" id="address" name="address" required>
+                                <span class="error-message">Por favor ingrese su dirección</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Información del FPQRS -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <span class="badge badge-primary">2</span> Información del FPQRS
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="fpqrsType">Tipo de FPQRS <span class="required">*</span></label>
+                                <select id="fpqrsType" name="type" required>
+                                    <option value="">Seleccione un tipo</option>
+                                    <option value="Felicitación">Felicitación</option>
+                                    <option value="Petición">Petición</option>
+                                    <option value="Queja">Queja</option>
+                                    <option value="Reclamo">Reclamo</option>
+                                    <option value="Sugerencia">Sugerencia</option>
+                                </select>
+                                <span class="error-message">Por favor seleccione un tipo</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="priority">Prioridad <span class="required">*</span></label>
+                                <select id="priority" name="priority" required>
+                                    <option value="">Seleccione prioridad</option>
+                                    <option value="Baja">Baja</option>
+                                    <option value="Media">Media</option>
+                                    <option value="Alta">Alta</option>
+                                </select>
+                                <span class="error-message">Por favor seleccione una prioridad</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="subject">Asunto <span class="required">*</span></label>
+                                <input type="text" id="subject" name="subject" required>
+                                <span class="error-message">Por favor ingrese un asunto</span>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="description">Descripción Detallada <span class="required">*</span></label>
+                                <textarea id="description" name="description" required></textarea>
+                                <span class="form-help-text">Cuéntanos con detalles tu petición, queja, reclamo, sugerencia o felicitación</span>
+                                <span class="error-message">Por favor ingrese una descripción</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Documentos Adjuntos -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <span class="badge badge-primary">3</span> Documentos Adjuntos
+                        </h3>
+
+                        <div class="form-group">
+                            <label>Selecciona archivos relevantes</label>
+                            <div class="file-upload">
+                                <input type="file" id="fileInput" name="attachments" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                                <label for="fileInput" class="file-upload-label">
+                                    <span class="file-upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </span>
+                                    <span class="file-upload-text">
+                                        <strong>Arrastra archivos aquí</strong>
+                                        <small>o haz clic para seleccionar</small>
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="file-list" id="fileList"></div>
+                            <span class="form-help-text">Formatos soportados: PDF, JPG, PNG, DOC, DOCX (Máx 5MB por archivo)</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: Confirmación -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <span class="badge badge-primary">4</span> Confirmación
+                        </h3>
+
+                        <div class="form-group-checkbox">
+                            <label>
+                                <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                                Declaro que la información suministrada es verdadera y completa
+                            </label>
+                            <label>
+                                <input type="checkbox" id="agreePrivacy" name="agreePrivacy" required>
+                                Acepto los términos y condiciones de privacidad
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" onclick="navigateToPage('inbox')">Cancelar</button>
+                        <button type="reset" class="btn-reset">Limpiar Formulario</button>
+                        <button type="submit" class="btn-submit">Radicar FPQRS</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <!-- Formulario de Registro -->
-    <div id="registerForm" class="auth-container d-none">
-        <div class="auth-card">
-            <div class="auth-header">
-                <h1 class="auth-title">Crear Cuenta</h1>
-                <p class="auth-subtitle">Completa el formulario para registrarte</p>
-            </div>
-
-            <form id="form-register" class="auth-form" novalidate>
-                <div class="form-group mb-3">
-                    <label for="registerName" class="form-label">Nombre Completo</label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        id="registerName" 
-                        name="fullName" 
-                        placeholder="Tu nombre completo"
-                        required
-                        aria-label="Nombre completo">
-                    <div class="invalid-feedback">El nombre es requerido.</div>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="registerEmail" class="form-label">Correo Electrónico</label>
-                    <input 
-                        type="email" 
-                        class="form-control" 
-                        id="registerEmail" 
-                        name="email" 
-                        placeholder="tu@email.com"
-                        required
-                        aria-label="Correo electrónico">
-                    <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="registerPassword" class="form-label">Contraseña</label>
-                    <input 
-                        type="password" 
-                        class="form-control" 
-                        id="registerPassword" 
-                        name="password" 
-                        placeholder="Mínimo 6 caracteres"
-                        required
-                        minlength="6"
-                        aria-label="Contraseña">
-                    <div class="invalid-feedback">La contraseña debe tener al menos 6 caracteres.</div>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label for="registerPasswordConfirm" class="form-label">Confirmar Contraseña</label>
-                    <input 
-                        type="password" 
-                        class="form-control" 
-                        id="registerPasswordConfirm" 
-                        name="passwordConfirm" 
-                        placeholder="Confirma tu contraseña"
-                        required
-                        aria-label="Confirmar contraseña">
-                    <div class="invalid-feedback">Las contraseñas no coinciden.</div>
-                </div>
-
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="acceptTerms" name="acceptTerms" required>
-                    <label class="form-check-label" for="acceptTerms">
-                        Acepto los términos y condiciones
-                    </label>
-                    <div class="invalid-feedback d-block">Debes aceptar los términos.</div>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100 mb-2">Registrarse</button>
-            </form>
-
-            <div class="auth-divider">
-                <span>o</span>
-            </div>
-
-            <p class="auth-switch text-center">
-                ¿Ya tienes cuenta? 
-                <a href="#" id="switchToLogin" class="auth-link">Inicia sesión aquí</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/auth.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/case-manager.js"></script>
+    <script src="js/form-handler.js"></script>
 </body>
 </html>

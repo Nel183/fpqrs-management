@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Caso - FPQRS Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/case-detail.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <i class="fas fa-file-invoice"></i> FPQRS Management
+            </a>
+            <div class="navbar-nav">
+                <a href="case-inbox.html" class="nav-link">Bandeja</a>
+                <a href="registration-form.html" class="nav-link">Nuevo FPQRS</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="case-detail-header">
+        <div class="case-detail-title">
+            <div>
+                <h1>FPQRS-2026-001</h1>
+                <p class="text-muted">Atención deficiente en el servicio</p>
+            </div>
+            <div class="case-detail-actions">
+                <button class="btn btn-outline-primary">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-outline-primary">
+                    <i class="fas fa-download"></i> Descargar
+                </button>
+                <button class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+            </div>
+        </div>
+
+        <div class="case-meta">
+            <div class="case-meta-item">
+                <label>Tipo</label>
+                <value>Queja</value>
+            </div>
+            <div class="case-meta-item">
+                <label>Estado</label>
+                <value>En Proceso</value>
+            </div>
+            <div class="case-meta-item">
+                <label>Prioridad</label>
+                <value>Alta</value>
+            </div>
+            <div class="case-meta-item">
+                <label>Fecha de Creación</label>
+                <value>10/06/2026</value>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="case-content">
+            <div class="case-main">
+                <div class="case-section">
+                    <h3 class="case-section-title">Descripción</h3>
+                    <div class="case-description">
+                        El personal fue muy desatento durante mi visita el día 15 de junio. La atención no fue la esperada y me gustaría que se mejore el servicio.
+                    </div>
+                </div>
+
+                <div class="case-section">
+                    <h3 class="case-section-title">Comentarios</h3>
+                    <div class="comments-list">
+                        <div class="comment-item">
+                            <div class="comment-header">
+                                <span class="comment-author">Administrador</span>
+                                <span class="comment-date">12/06/2026</span>
+                            </div>
+                            <div class="comment-text">Se ha iniciado investigación sobre el incidente reportado.</div>
+                        </div>
+                    </div>
+                    <div class="comment-form mt-4">
+                        <textarea class="comment-textarea" placeholder="Escribe un comentario..."></textarea>
+                        <div class="comment-actions">
+                            <button type="button" class="btn-cancel">Cancelar</button>
+                            <button type="button" class="btn-submit">Enviar Comentario</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-section">
+                    <h3 class="case-section-title">Historial de Cambios</h3>
+                    <div class="history-timeline">
+                        <div class="timeline-item">
+                            <div>
+                                <div class="timeline-date">10/06/2026</div>
+                                <span class="timeline-status">Radicada</span>
+                                <div class="timeline-note">Caso creado y asignado</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div>
+                                <div class="timeline-date">12/06/2026</div>
+                                <span class="timeline-status">En Proceso</span>
+                                <div class="timeline-note">Se inició investigación</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-sidebar">
+                <div class="sidebar-card">
+                    <h4 class="sidebar-title">Información del Solicitante</h4>
+                    <div class="info-item">
+                        <span class="info-label">Nombre</span>
+                        <span class="info-value">Juan Pérez</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Correo</span>
+                        <span class="info-value">demo@example.com</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Teléfono</span>
+                        <span class="info-value">+57 301 234 5678</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Cédula</span>
+                        <span class="info-value">123456789</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4 class="sidebar-title">Detalles de Estado</h4>
+                    <div class="info-item">
+                        <span class="info-label">Estado Actual</span>
+                        <span class="status-badge en-proceso">En Proceso</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Prioridad</span>
+                        <span class="priority-badge alta">Alta</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Fecha Límite</span>
+                        <span class="info-value">25/06/2026</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-card">
+                    <h4 class="sidebar-title">Acciones</h4>
+                    <button class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-edit"></i> Editar Caso
+                    </button>
+                    <button class="btn btn-danger w-100">
+                        <i class="fas fa-trash"></i> Eliminar Caso
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

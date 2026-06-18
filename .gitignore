@@ -1,5 +1,19 @@
 # Dependencies
 node_modules/
+npm-debug.log
+yarn-error.log
+
+# Production
+build/
+dist/
+
+# Misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # IDE
 .vscode/
@@ -7,16 +21,9 @@ node_modules/
 *.swp
 *.swo
 *~
-.DS_Store
+.project
+.classpath
 
-# Build
-dist/
-build/
-
-# Logs
+# OS
+Thumbs.db
 *.log
-npm-debug.log*
-
-# Environment
-.env
-.env.local

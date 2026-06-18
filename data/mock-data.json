@@ -1,0 +1,58 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "demo@example.com",
+      "password": "demo123",
+      "name": "Juan Pérez",
+      "document": "123456789",
+      "phone": "+57 301 234 5678",
+      "address": "Cra 7 #12-34, Bogotá"
+    },
+    {
+      "id": 2,
+      "email": "test@example.com",
+      "password": "test123",
+      "name": "María García",
+      "document": "987654321",
+      "phone": "+57 302 345 6789",
+      "address": "Calle 5 #23-45, Medellín"
+    }
+  ],
+  "cases": [
+    {
+      "id": 1,
+      "number": "FPQRS-2026-001",
+      "type": "Queja",
+      "status": "En Proceso",
+      "priority": "Alta",
+      "subject": "Atención deficiente en el servicio",
+      "description": "El personal fue muy desatento durante mi visita el día 15 de junio.",
+      "user": "Juan Pérez",
+      "email": "demo@example.com",
+      "createdAt": "2026-06-10",
+      "dueDate": "2026-06-25",
+      "attachments": [],
+      "comments": [
+        {
+          "id": 1,
+          "author": "Administrador",
+          "date": "2026-06-12",
+          "text": "Se ha iniciado investigación sobre el incidente reportado."
+        }
+      ],
+      "history": [
+        {
+          "date": "2026-06-10",
+          "status": "Radicada",
+          "note": "Caso creado y asignado"
+        },
+        {
+          "date": "2026-06-12",
+          "status": "En Proceso",
+          "note": "Se inició investigación"
+        }
+      ]
+    }
+  ]
+}

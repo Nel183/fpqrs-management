@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de gestión de FPQRS - Inicio de sesión y registro">
+    <title>FPQRS Management - Inicio de Sesión</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body class="auth-body">
+    <!-- Formulario de Inicio de Sesión -->
+    <div id="loginForm" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-title">FPQRS Management</h1>
+                <p class="auth-subtitle">Sistema de Gestión de Peticiones, Quejas, Reclamos y Sugerencias</p>
+            </div>
+
+            <form id="form-login" class="auth-form" novalidate>
+                <div class="form-group mb-3">
+                    <label for="loginEmail" class="form-label">Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="loginEmail" 
+                        name="email" 
+                        placeholder="usuario@example.com"
+                        required
+                        aria-label="Correo electrónico">
+                    <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="loginPassword" class="form-label">Contraseña</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="loginPassword" 
+                        name="password" 
+                        placeholder="Ingresa tu contraseña"
+                        required
+                        aria-label="Contraseña">
+                    <div class="invalid-feedback">La contraseña es requerida.</div>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
+                    <label class="form-check-label" for="rememberMe">
+                        Recuérdame
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-2">Iniciar Sesión</button>
+            </form>
+
+            <div class="auth-divider">
+                <span>o</span>
+            </div>
+
+            <p class="auth-switch text-center">
+                ¿No tienes cuenta? 
+                <a href="#" id="switchToRegister" class="auth-link">Regístrate aquí</a>
+            </p>
+
+            <!-- Credenciales de prueba -->
+            <div class="alert alert-info mt-4" role="alert">
+                <strong>Credenciales de prueba:</strong>
+                <br>
+                <small>Usuario: usuario@example.com</small>
+                <br>
+                <small>Contraseña: 123456</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de Registro -->
+    <div id="registerForm" class="auth-container d-none">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-title">Crear Cuenta</h1>
+                <p class="auth-subtitle">Completa el formulario para registrarte</p>
+            </div>
+
+            <form id="form-register" class="auth-form" novalidate>
+                <div class="form-group mb-3">
+                    <label for="registerName" class="form-label">Nombre Completo</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        id="registerName" 
+                        name="fullName" 
+                        placeholder="Tu nombre completo"
+                        required
+                        aria-label="Nombre completo">
+                    <div class="invalid-feedback">El nombre es requerido.</div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="registerEmail" class="form-label">Correo Electrónico</label>
+                    <input 
+                        type="email" 
+                        class="form-control" 
+                        id="registerEmail" 
+                        name="email" 
+                        placeholder="tu@email.com"
+                        required
+                        aria-label="Correo electrónico">
+                    <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="registerPassword" class="form-label">Contraseña</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="registerPassword" 
+                        name="password" 
+                        placeholder="Mínimo 6 caracteres"
+                        required
+                        minlength="6"
+                        aria-label="Contraseña">
+                    <div class="invalid-feedback">La contraseña debe tener al menos 6 caracteres.</div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="registerPasswordConfirm" class="form-label">Confirmar Contraseña</label>
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        id="registerPasswordConfirm" 
+                        name="passwordConfirm" 
+                        placeholder="Confirma tu contraseña"
+                        required
+                        aria-label="Confirmar contraseña">
+                    <div class="invalid-feedback">Las contraseñas no coinciden.</div>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="acceptTerms" name="acceptTerms" required>
+                    <label class="form-check-label" for="acceptTerms">
+                        Acepto los términos y condiciones
+                    </label>
+                    <div class="invalid-feedback d-block">Debes aceptar los términos.</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-2">Registrarse</button>
+            </form>
+
+            <div class="auth-divider">
+                <span>o</span>
+            </div>
+
+            <p class="auth-switch text-center">
+                ¿Ya tienes cuenta? 
+                <a href="#" id="switchToLogin" class="auth-link">Inicia sesión aquí</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>
